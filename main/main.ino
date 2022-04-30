@@ -45,21 +45,22 @@ void loop()
 
             // Measure distance
             cm_value = DisCM();
+            if(cm_value > 50)
+              cm_value = 50;
             // Calculate coordinates
-            Xl = (float)cm_value * cos(Position);
-            Yl = (float)cm_value * sin(Position);
+            Xl = (double)cm_value * cos(Position);
+            Yl = (double)cm_value * sin(Position);
 
-            // send result in cm from proximity sensor
-            Serial.print(cm_value);
-            Serial.print(" cm  ");
+            // send result in data frame ":L X Y\n" from proximity sensor
+            Serial.print(":");      //Start of frame
+            Serial.print(cm_value); //L value
+            Serial.print(" ");      //Gap between values
             // send X coordinates
-            Serial.print("X = ");
-            Serial.print(Xl, 2);
-            Serial.print(" cm\t");
+            Serial.print(Xl, 2);    //X value
+            Serial.print(" ");      //Gap between values
             // send Y coordinates
-            Serial.print("Y = ");
-            Serial.print(Yl, 2);
-            Serial.println(" cm");
+            Serial.print(Yl, 2);    //Y value
+            Serial.println();
 
             // Change servo motor position
             switch (flag)
