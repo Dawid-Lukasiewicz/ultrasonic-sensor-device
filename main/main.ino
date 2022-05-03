@@ -2,6 +2,7 @@
 #include <math.h>
 #define trigPin 6
 #define echoPin 5
+#define PI 3.14
 
 uint16_t DisCM()
 {
@@ -16,6 +17,7 @@ uint16_t DisCM()
 
 Servo Serw;
 int16_t Position = 0, Change = 5, DelayedTimeMs = 50;
+float Radians = 0;
 uint8_t flag = 0;
 int cm_value = 0;
 float Xl, Yl;
@@ -48,8 +50,9 @@ void loop()
             if(cm_value > 50)
               cm_value = 50;
             // Calculate coordinates
-            Xl = (double)cm_value * cos(Position);
-            Yl = (double)cm_value * sin(Position);
+            Radians = Position*PI/180;
+            Xl = (double)cm_value * cos(Radians);
+            Yl = (double)cm_value * sin(Radians);
 
             // send result in data frame ":L X Y\n" from proximity sensor
             Serial.print(":");      //Start of frame
