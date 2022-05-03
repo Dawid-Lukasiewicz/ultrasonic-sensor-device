@@ -56,13 +56,13 @@ void loop()
 
             // send result in data frame ":L X Y\n" from proximity sensor
             Serial.print(":");      //Start of frame
-            Serial.print(cm_value); //L value
+            Serial.print(cm_value, 1); //L value
             Serial.print(" ");      //Gap between values
             // send X coordinates
-            Serial.print(Xl, 2);    //X value
+            Serial.print(Xl, 1);    //X value
             Serial.print(" ");      //Gap between values
             // send Y coordinates
-            Serial.print(Yl, 2);    //Y value
+            Serial.print(Yl, 1);    //Y value
             Serial.println();
 
             // Change servo motor position
