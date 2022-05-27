@@ -2,6 +2,7 @@
 #include <math.h>
 #define trigPin 6
 #define echoPin 5
+#define PWM_PIN 9
 #define PI 3.14
 
 uint16_t DisCM()
@@ -28,7 +29,7 @@ void setup()
     Serial.begin(9600);
 
     // Initialazing servo motor
-    Serw.attach(3);
+    Serw.attach(PWM_PIN);
     Serw.write(Position);
 
     // Initialazing ultrasonic sensor HC-SR04
@@ -47,22 +48,22 @@ void loop()
 
             // Measure distance
             cm_value = DisCM();
-            if(cm_value > 50)
-              cm_value = 50;
+            if (cm_value > 50)
+                cm_value = 50;
             // Calculate coordinates
-            Radians = Position*PI/180;
+            Radians = Position * PI / 180;
             Xl = (double)cm_value * cos(Radians);
             Yl = (double)cm_value * sin(Radians);
 
             // send result in data frame ":L X Y\n" from proximity sensor
-            Serial.print(":");      //Start of frame
-            Serial.print(cm_value, 1); //L value
-            Serial.print(" ");      //Gap between values
+            Serial.print(":");         // Start of frame
+            Serial.print(cm_value, 1); // L value
+            Serial.print(" ");         // Gap between values
             // send X coordinates
-            Serial.print(Xl, 1);    //X value
-            Serial.print(" ");      //Gap between values
+            Serial.print(Xl, 1); // X value
+            Serial.print(" ");   // Gap between values
             // send Y coordinates
-            Serial.print(Yl, 1);    //Y value
+            Serial.print(Yl, 1); // Y value
             Serial.println();
 
             // Change servo motor position
